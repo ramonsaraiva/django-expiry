@@ -27,7 +27,7 @@ Define a set of rules in your settings
 
 
 Each rule is composed by:
-* A lambda, a function or a path to a function that will validate it
+* A callable or the path to a callable that will validate it
 * An expiry (seconds, datetime, timedelta)
 
 Rules are processed when an user logs in and each rule receives the `user` and the `request` as context.
