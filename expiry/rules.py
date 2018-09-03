@@ -24,13 +24,14 @@ def process_rule(rule, **kwargs):
     return rule(request, user) if user.is_authenticated() else rule(request)
 
 
-def process_rules(request, **kwargs):
+def process_rules(**kwargs):
     """
     Processes all rules. If a default age is defined, sets the session
     expiry to the default age value.
 
     Rules will always override the default age.
     """
+    request = kwargs.get('request')
     key = get_settings_key(kwargs['user'])
 
     default_age = getattr(settings, 'EXPIRY_{}_SESSION_AGE'.format(key), None)
