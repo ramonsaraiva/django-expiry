@@ -17,28 +17,57 @@ Add `expiry` to your `INSTALLED_APPS` setting
 
 ## Usage
 
-Define a set of rules in your settings
+### Ages
 
-    EXPIRY_SESSION_RULES = (
-        (lambda user, request: user.is_superuser, 300)
-        (lambda user, request: user.has_perms('hero'), datetime.timedelta(weeks=99999))
-        ('app.expiry.special_ip', datetime.timedelta(days=10))
+Default ages can be set for anonymous and authenticated users. When not set, the session age behaviour will default to Django.
+
+`EXPIRY_ANON_SESSION_AGE`
+Default: not set.
+
+The defualt age of an anonymous session, in seconds.
+
+`EXPIRY_AUTH_SESSION_AGE`
+Default: not set.
+
+The default age of an authenticated session, in seconds.
+
+### Rules
+
+A set of rules should be defined in your settings file.
+You can have rules for anonymous users and authenticated users, handled separately.
+
+#### Expiry rules for authenticated users only
+
+Processed whenever an user logs in. Its callable should always accept an `user` and a `request` object.
+
+    EXPIRY_AUTH_SESSION_RULES = (
+        (lambda request, user: user.is_staff, 300),
+        (lambda request, user: user.is_superuser, datetime.timedelta(weeks=2)),
+        (lambda request, user: user.has_perms('hero'), 99999999),
     )
 
+#### Expiry rules for anonymous users only
 
-Each rule is composed by:
+Processed whenever a session is 
+
+    EXPIRY_ANON_SESSION_RULES = (
+        (lambda request: request.META.get('REMOTE_ADDR') == '192.168.0.1', 999)
+    )
+
+#### Rule composition
+
+A rule is a tuple composed by:
 * A callable or the path to a callable that will validate it
 * An expiry (seconds, datetime, timedelta)
 
-Rules are processed when an user logs in and each rule receives the `user` and the `request` as context.
+In the examples, all rules are lambdas, but you can also send the path to a function that will validate it.
+For example:
 
-It is recommended to use a path or a previously defined function when your rule needs complex validations, for example:
+    EXPIRY_AUTH_SESSION_RULES = (
+        ('app.module.complex_rule', datetime.timedelta(days=64)),
+    )
 
-    def special_ip(user, request):
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0]
-        else:
-            ip = request.META.get('REMOTE_ADDR')
+Then define the rule in that specific module:
 
-        return ip in ('100.100.100.100', '101.101.101.101', '102.102.102.102')
+    def complex_rule(user, request):
+        ...
