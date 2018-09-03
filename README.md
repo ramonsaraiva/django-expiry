@@ -8,6 +8,10 @@ Install using `pip`
 
     pip install django-expiry
 
+or `Pipenv`
+
+    pipenv install django-expiry
+
 Add `expiry` to your `INSTALLED_APPS` setting
 
     INSTALLED_APPS = (
@@ -22,7 +26,7 @@ Add `expiry.middleware.ExpirySessionMiddleware` to your middleware setting
         'expiry.middleware.ExpirySessionMiddleware',
     )
 
-Or to middleware classes if your Django is >= 1.10
+or to middleware classes if your Django is >= 1.10
 
     MIDDLEWARE_CLASSES = (
         ...
@@ -74,7 +78,7 @@ Processed whenever an user logs in. Its callable should always accept an `user` 
 
 #### Expiry rules for anonymous users only
 
-Processed whenever a session is 
+Processed whenever a session is fresh. Rules are triggered in `ExpirySessionMiddleware`.
 
     EXPIRY_ANON_SESSION_RULES = (
         (lambda request: request.META.get('REMOTE_ADDR') == '192.168.0.1', 999)
@@ -86,8 +90,10 @@ A rule is a tuple composed by:
 * A callable or the path to a callable that will validate it
 * An expiry (seconds, datetime, timedelta)
 
-In the examples, all rules are lambdas, but you can also send the path to a function that will validate it.
-For example:
+Note that, for `datetime` and `timedelta` expiries, serialization won't work unless you are using the `PickleSerializer`.  
+Read more about it [here](https://docs.djangoproject.com/en/2.1/topics/http/sessions/#django.contrib.sessions.backends.base.SessionBase.set_expiry).
+
+In the examples above, all rules are lambdas, but you can also send the path to a function that will validate it.
 
     EXPIRY_AUTH_SESSION_RULES = (
         ('app.module.complex_rule', datetime.timedelta(days=64)),
