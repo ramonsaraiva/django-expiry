@@ -1,3 +1,6 @@
 *.py[cod]
 *.swp
 .python-version
+build
+dist
+*.egg-info
