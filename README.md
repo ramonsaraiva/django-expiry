@@ -19,14 +19,14 @@ Add `expiry.middleware.ExpirySessionMiddleware` to your middleware setting
 
     MIDDLEWARE = (
         ...
-        'expiry.middleware.ExpirySessionMiddleware
+        'expiry.middleware.ExpirySessionMiddleware',
     )
 
 Or to middleware classes if your Django is >= 1.10
 
     MIDDLEWARE_CLASSES = (
         ...
-        'expiry.middleware.ExpirySessionMiddleware
+        'expiry.middleware.ExpirySessionMiddleware',
     )
 
 The middleware will process rules and default ages for fresh sessions.
