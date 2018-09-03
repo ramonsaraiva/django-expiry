@@ -14,6 +14,7 @@ def read(fname):
 setup(
     name='django-expiry',
     version='0.1.0',
+    license='MIT',
     description='Expiry rules for Django sessions.',
     long_description=read('README.md'),
     long_description_content_type='text/markdown',
