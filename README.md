@@ -15,21 +15,47 @@ Add `expiry` to your `INSTALLED_APPS` setting
         'expiry',
     )
 
+Add `expiry.middleware.ExpirySessionMiddleware` to your middleware setting
+
+    MIDDLEWARE = (
+        ...
+        'expiry.middleware.ExpirySessionMiddleware
+    )
+
+Or to middleware classes if your Django is >= 1.10
+
+    MIDDLEWARE_CLASSES = (
+        ...
+        'expiry.middleware.ExpirySessionMiddleware
+    )
+
+The middleware will process rules and default ages for fresh sessions.
+
 ## Usage
 
 ### Ages
 
 Default ages can be set for anonymous and authenticated users. When not set, the session age behaviour will default to Django.
 
-`EXPIRY_ANON_SESSION_AGE`
+`EXPIRY_ANON_SESSION_AGE`  
 Default: not set.
 
-The defualt age of an anonymous session, in seconds.
+The default age of an anonymous session, in seconds.
 
-`EXPIRY_AUTH_SESSION_AGE`
+`EXPIRY_ANON_KEEP_ALIVE`  
+Default: `False`
+
+Keeps the authenticated session alive, refreshing its expiry for every request, according to its default value and rules.
+
+`EXPIRY_AUTH_SESSION_AGE`  
 Default: not set.
 
 The default age of an authenticated session, in seconds.
+
+`EXPIRY_AUTH_KEEP_ALIVE`  
+Default: `False`
+
+Keeps the anonymous session alive, refreshing its expiry for every request, according to its default value and rules.
 
 ### Rules
 
