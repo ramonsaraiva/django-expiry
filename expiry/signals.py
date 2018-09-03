@@ -13,6 +13,5 @@ def logged_expiry_handler(sender, user, request, **kwargs):
             rule = import_string(rule)
 
         if rule(user, request):
-            print('applying rule {} with expiry {}'.format(rule, expiry))
             request.session.set_expiry(expiry)
             break
