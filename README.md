@@ -26,7 +26,7 @@ Add `expiry.middleware.ExpirySessionMiddleware` to your middleware setting
         'expiry.middleware.ExpirySessionMiddleware',
     )
 
-or to middleware classes if your Django is >= 1.10
+or to middleware classes if your Django is <= 1.9
 
     MIDDLEWARE_CLASSES = (
         ...
