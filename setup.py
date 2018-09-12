@@ -13,13 +13,14 @@ def read(fname):
 
 setup(
     name='django-expiry',
-    version='0.1.0',
+    version='0.2.0',
     license='MIT',
     description='Expiry rules for Django sessions.',
     long_description=read('README.md'),
     long_description_content_type='text/markdown',
     author='Ramon Saraiva',
     author_email='ramonsaraiva@gmail.com',
+    url='https://github.com/ramonsaraiva/django-expiry',
     packages=find_packages(exclude=['tests*']),
     include_package_data=True,
     install_requires=[],
