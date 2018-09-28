@@ -13,7 +13,7 @@ def read(fname):
 
 setup(
     name='django-expiry',
-    version='0.2.1',
+    version='0.2.2',
     license='MIT',
     description='Expiry rules for Django sessions.',
     long_description=read('README.md'),
