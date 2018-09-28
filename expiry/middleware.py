@@ -21,6 +21,9 @@ class ExpirySessionMiddleware(MiddlewareMixin):
         or the session is configured to keep alive, processes all rules
         to identify what `expiry` should be set.
         """
+        if not (hasattr(request, 'user') and hastattr(request, 'session')):
+            return response
+
         key = get_settings_key(request.user)
 
         fresh_session = (
