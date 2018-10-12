@@ -22,7 +22,8 @@ jobs:
       - run: sudo sudo sh -c 'curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python'
       - run: poetry install
       - run: poetry run ./manage.py test
-
+      - run:
+          command: |
+            mkdir -p ./test_reports
       - store_artifacts:
-          path: test-reports
-          destination: test-reports
+          path: ./test-reports
