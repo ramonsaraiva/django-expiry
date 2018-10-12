@@ -19,6 +19,7 @@ jobs:
 
     steps:
       - checkout
+      - run: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
       - run: poetry install
       - run: poetry run ./manage.py test
 
