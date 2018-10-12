@@ -20,10 +20,14 @@ jobs:
     steps:
       - checkout
       - run: sudo sudo sh -c 'curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python'
-      - run: poetry install
-      - run: poetry run ./manage.py test
       - run:
           command: |
             mkdir -p ./test_reports
+            mkdir -p ./artifacts
+      - run: poetry install
+      - run: poetry run ./manage.py test
+
       - store_artifacts:
-          path: ./test-reports
+          path: ./artifacts
+      - store_test_results:
+          path: ./test_reports
