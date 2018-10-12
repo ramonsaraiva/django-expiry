@@ -1,0 +1,11 @@
+version: 2
+jobs:
+	build:
+		working_directory: ~/tmp
+    docker:
+      - image: circleci/python:3
+    steps:
+      - checkout
+      - run: poetry install
+      - run: poetry run ./manage.py test
+      
