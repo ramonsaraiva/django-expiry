@@ -1,5 +1,7 @@
 # django-expiry
 
+[![CircleCI](https://circleci.com/gh/ramonsaraiva/django-expiry.svg?style=svg)](https://circleci.com/gh/ramonsaraiva/django-expiry)
+
 Expiry rules for Django sessions.
 
 ## Installation
