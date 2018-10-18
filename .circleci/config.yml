@@ -19,13 +19,11 @@ jobs:
 
     steps:
       - checkout
-      - run: sudo sudo sh -c 'curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python'
       - run:
           command: |
             mkdir -p ./test_reports
             mkdir -p ./artifacts
-      - run: poetry install
-      - run: poetry run ./manage.py test
+      - run: pip install tox && tox
 
       - store_artifacts:
           path: ./artifacts
