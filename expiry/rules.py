@@ -3,7 +3,7 @@ from django.utils.module_loading import import_string
 
 
 def get_settings_key(user):
-    return 'AUTH' if user.is_authenticated() else 'ANON'
+    return 'AUTH' if user.is_authenticated else 'ANON'
 
 
 def process_rule(rule, **kwargs):
@@ -21,7 +21,7 @@ def process_rule(rule, **kwargs):
 
     request = kwargs.pop('request')
     user = kwargs.pop('user', None)
-    return rule(request, user) if user.is_authenticated() else rule(request)
+    return rule(request, user) if user.is_authenticated else rule(request)
 
 
 def process_rules(**kwargs):
